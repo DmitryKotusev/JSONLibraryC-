@@ -584,7 +584,7 @@ std::string JSONUtility::StringifyToJson(std::any input)
 	}
 	else if (JSONObject* obj = std::any_cast<JSONObject>(&input))
 	{
-		resultString += StringifyJSONObject(*obj);
+		resultString += StringifyJsonObject(*obj);
 	}
 	else if (void** nullPtr = std::any_cast<void*>(&input))
 	{
@@ -668,7 +668,7 @@ std::string JSONUtility::StringifyVector(std::vector<std::any> arr, size_t tabCo
 		else if (JSONObject* obj = std::any_cast<JSONObject>(&(arr[i])))
 		{
 			resultString
-				+= StringifyJSONObject(*obj, tabCount + 1) + commaStr + newline;
+				+= StringifyJsonObject(*obj, tabCount + 1) + commaStr + newline;
 		}
 		else if (void** nullPtr = std::any_cast<void*>(&(arr[i])))
 		{
@@ -690,7 +690,7 @@ std::string JSONUtility::StringifyVector(std::vector<std::any> arr, size_t tabCo
 	return resultString;
 }
 
-std::string JSONUtility::StringifyJSONObject(JSONObject obj, size_t tabCount)
+std::string JSONUtility::StringifyJsonObject(JSONObject obj, size_t tabCount)
 {
 	std::string resultString = "";
 
@@ -739,7 +739,7 @@ std::string JSONUtility::StringifyJSONObject(JSONObject obj, size_t tabCount)
 		{
 			resultString += newline;
 			resultString
-				+= StringifyJSONObject(*subObj, tabCount + 1) + commaStr + newline;
+				+= StringifyJsonObject(*subObj, tabCount + 1) + commaStr + newline;
 		}
 		else if (void** nullPtr = std::any_cast<void*>(&(obj[keys[i]])))
 		{

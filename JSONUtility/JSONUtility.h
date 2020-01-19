@@ -68,7 +68,7 @@ private:
 
     static std::string StringifyVector(std::vector<std::any> arr, size_t tabCount = 0);
 
-    static std::string StringifyJSONObject(JSONObject obj, size_t tabCount = 0);
+    static std::string StringifyJsonObject(JSONObject obj, size_t tabCount = 0);
 public:
 	static std::any ParseJsonString(std::string jsonString);
 
