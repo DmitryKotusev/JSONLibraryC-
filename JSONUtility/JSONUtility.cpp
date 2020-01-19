@@ -663,7 +663,7 @@ std::string JSONUtility::StringifyVector(std::vector<std::any> arr, size_t tabCo
 		else if (std::vector<std::any>* subArr = std::any_cast<std::vector<std::any>>(&(arr[i])))
 		{
 			resultString
-				+= StringifyVector(*subArr, tabCount + 1) + commaStr;
+				+= StringifyVector(*subArr, tabCount + 1) + commaStr + newline;
 		}
 		else if (JSONObject* obj = std::any_cast<JSONObject>(&(arr[i])))
 		{
@@ -685,7 +685,7 @@ std::string JSONUtility::StringifyVector(std::vector<std::any> arr, size_t tabCo
 		}
 	}
 
-	resultString += GetTabOffset(tabCount) + "]" + newline;
+	resultString += GetTabOffset(tabCount) + "]";
 
 	return resultString;
 }
@@ -712,28 +712,28 @@ std::string JSONUtility::StringifyJSONObject(JSONObject obj, size_t tabCount)
 		if (bool* boolean = std::any_cast<bool>(&(obj[keys[i]])))
 		{
 			resultString
-				+= GetTabOffset(tabCount) + tab + StringifyBool(*boolean) + commaStr + newline;
+				+= StringifyBool(*boolean) + commaStr + newline;
 		}
 		else if (std::string* str = std::any_cast<std::string>(&(obj[keys[i]])))
 		{
 			resultString
-				+= GetTabOffset(tabCount) + tab + StringifyString(*str) + commaStr + newline;
+				+= StringifyString(*str) + commaStr + newline;
 		}
 		else if (double* number = std::any_cast<double>(&(obj[keys[i]])))
 		{
 			resultString
-				+= GetTabOffset(tabCount) + tab + StringifyNumber(*number) + commaStr + newline;
+				+= StringifyNumber(*number) + commaStr + newline;
 		}
 		else if (int* number = std::any_cast<int>(&(obj[keys[i]])))
 		{
 			resultString
-				+= GetTabOffset(tabCount) + tab + StringifyNumber(*number) + commaStr + newline;
+				+= StringifyNumber(*number) + commaStr + newline;
 		}
 		else if (std::vector<std::any>* arr = std::any_cast<std::vector<std::any>>(&(obj[keys[i]])))
 		{
 			resultString += newline;
 			resultString
-				+= StringifyVector(*arr, tabCount + 1) + commaStr;
+				+= StringifyVector(*arr, tabCount + 1) + commaStr + newline;
 		}
 		else if (JSONObject* subObj = std::any_cast<JSONObject>(&(obj[keys[i]])))
 		{
@@ -748,7 +748,7 @@ std::string JSONUtility::StringifyJSONObject(JSONObject obj, size_t tabCount)
 				throw "Incorrect input";
 			}
 			resultString
-				+= GetTabOffset(tabCount) + tab + StringifyNull() + commaStr + newline;
+				+= StringifyNull() + commaStr + newline;
 		}
 		else
 		{
@@ -756,7 +756,7 @@ std::string JSONUtility::StringifyJSONObject(JSONObject obj, size_t tabCount)
 		}
 	}
 
-	resultString += GetTabOffset(tabCount) + "}" + newline;
+	resultString += GetTabOffset(tabCount) + "}";
 
 	return resultString;
 }
