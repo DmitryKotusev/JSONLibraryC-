@@ -30,6 +30,18 @@ private:
             && symbol != nullChar;
     }
 
+    static std::string GetTabOffset(size_t tabCount)
+    {
+        std::string resultString = "";
+
+        for (size_t i = 0; i < tabCount; i++)
+        {
+            resultString += tab;
+        }
+
+        return resultString;
+    }
+
     static JSONObject GetJsonObject(std::string jsonString, size_t& startIndex);
 
     static bool GetBoolean(std::string jsonString, size_t& startIndex, bool isTrue);
@@ -45,7 +57,21 @@ private:
     static void BypassColon(std::string jsonString, size_t& startIndex);
 
     static void BypassÑomma(std::string jsonString, size_t& startIndex, char additionalStopSymbol);
+
+    static std::string StringifyBool(bool boolean);
+
+    static std::string StringifyString(std::string str);
+
+    static std::string StringifyNumber(double number);
+
+    static std::string StringifyNull();
+
+    static std::string StringifyVector(std::vector<std::any> arr, size_t tabCount = 0);
+
+    static std::string StringifyJSONObject(JSONObject obj, size_t tabCount = 0);
 public:
 	static std::any ParseJsonString(std::string jsonString);
+
+    static std::string StringifyToJson(std::any input);
 };
 

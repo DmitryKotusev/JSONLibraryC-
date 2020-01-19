@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestJSONLibrary", "JSONLibr
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JSONUtility", "JSONUtility\JSONUtility.vcxproj", "{AE7FE40F-2EEF-4D46-BCF5-790B4E98D615}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo", "Demo\Demo.vcxproj", "{30B882BC-230B-45A7-A6C9-63D9569D010B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{AE7FE40F-2EEF-4D46-BCF5-790B4E98D615}.Release|x64.Build.0 = Release|x64
 		{AE7FE40F-2EEF-4D46-BCF5-790B4E98D615}.Release|x86.ActiveCfg = Release|Win32
 		{AE7FE40F-2EEF-4D46-BCF5-790B4E98D615}.Release|x86.Build.0 = Release|Win32
+		{30B882BC-230B-45A7-A6C9-63D9569D010B}.Debug|x64.ActiveCfg = Debug|x64
+		{30B882BC-230B-45A7-A6C9-63D9569D010B}.Debug|x64.Build.0 = Debug|x64
+		{30B882BC-230B-45A7-A6C9-63D9569D010B}.Debug|x86.ActiveCfg = Debug|Win32
+		{30B882BC-230B-45A7-A6C9-63D9569D010B}.Debug|x86.Build.0 = Debug|Win32
+		{30B882BC-230B-45A7-A6C9-63D9569D010B}.Release|x64.ActiveCfg = Release|x64
+		{30B882BC-230B-45A7-A6C9-63D9569D010B}.Release|x64.Build.0 = Release|x64
+		{30B882BC-230B-45A7-A6C9-63D9569D010B}.Release|x86.ActiveCfg = Release|Win32
+		{30B882BC-230B-45A7-A6C9-63D9569D010B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

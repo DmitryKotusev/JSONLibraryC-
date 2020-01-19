@@ -13,7 +13,7 @@ public:
 	JSONObject();
 	~JSONObject();
 	std::vector<std::string> GetKeys();
-	std::any operator[](std::string key);
+	std::any& operator[](std::string key);
 
 private:
 	std::map<std::string, std::any> keyValuePairs;

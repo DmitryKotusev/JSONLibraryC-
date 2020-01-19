@@ -12,3 +12,5 @@
 #endif //PCH_H
 
 #include "../JSONUtility/JSONUtility.h"
+#include <algorithm>
+#include <functional>

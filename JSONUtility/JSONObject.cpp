@@ -28,7 +28,7 @@ std::vector<std::string> JSONObject::GetKeys()
 	return keys;
 }
 
-std::any JSONObject::operator[](std::string key)
+std::any& JSONObject::operator[](std::string key)
 {
 	return keyValuePairs[key];
 }
