@@ -1,8 +1,14 @@
 #include "JSONObject.h"
+#include "JSONUtility.h"
 
 JSONObject::JSONObject()
 {
 	// keyValuePairs = std::map<std::string, std::any>();
+}
+
+JSONObject::JSONObject(std::map<std::string, std::any> keyValuePairs)
+{
+	this->keyValuePairs = keyValuePairs;
 }
 
 JSONObject::~JSONObject()
@@ -31,4 +37,16 @@ std::vector<std::string> JSONObject::GetKeys()
 std::any& JSONObject::operator[](std::string key)
 {
 	return keyValuePairs[key];
+}
+
+std::istream& operator>>(std::istream& in, JSONObject& obj)
+{
+	std::string jsonString = "";
+	std::getline(in, jsonString);
+	std::any parseResult = JSONUtility::ParseJsonString(jsonString);
+	if (JSONObject* jsonObject = std::any_cast<JSONObject>(&parseResult))
+	{
+		obj.keyValuePairs = jsonObject->keyValuePairs;
+	}
+	return in;
 }
