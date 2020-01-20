@@ -3,31 +3,34 @@
 
 JSONObject::JSONObject()
 {
-	// keyValuePairs = std::map<std::string, std::any>();
 }
 
-JSONObject::JSONObject(std::map<std::string, std::any> keyValuePairs)
+JSONObject::JSONObject(std::map<std::string, std::any> keyValuePairs, bool isFast)
 {
-	this->keyValuePairs = keyValuePairs;
+	this->isFast = isFast;
+	if (this->isFast)
+	{
+		for (std::map<std::string, std::any>::iterator it = keyValuePairs.begin();
+			it != keyValuePairs.end(); ++it) {
+			this->keyValuePairsFast.insert(*it);
+		}
+	}
+	else
+	{
+		this->keyValuePairsSlow = keyValuePairs;
+	}
 }
 
 JSONObject::~JSONObject()
 {
-	//std::vector<std::string> keys = GetKeys();
-
-	//for (size_t i = 0; i < keys.size(); i++)
-	//{
-	//	if (std::string* str = std::any_cast<std::string>(&(keyValuePairs[keys[i]]))) {
-
-	//	}
-	//}
 }
+
 
 std::vector<std::string> JSONObject::GetKeys()
 {
 	std::vector<std::string> keys;
-	for (std::map<std::string, std::any>::iterator it = keyValuePairs.begin();
-		it != keyValuePairs.end(); ++it) {
+	for (std::map<std::string, std::any>::iterator it = keyValuePairsSlow.begin();
+		it != keyValuePairsSlow.end(); ++it) {
 		keys.push_back(it->first);
 	}
 
@@ -36,7 +39,34 @@ std::vector<std::string> JSONObject::GetKeys()
 
 std::any& JSONObject::operator[](std::string key)
 {
-	return keyValuePairs[key];
+	if (isFast)
+	{
+		return keyValuePairsFast[key];
+	}
+	return keyValuePairsSlow[key];
+}
+
+void JSONObject::ChangeOrganizationType(bool isFast)
+{
+	if (this->isFast == isFast)
+	{
+		return;
+	}
+
+	if (isFast)
+	{
+		for (std::map<std::string, std::any>::iterator it = this->keyValuePairsSlow.begin();
+			it != this->keyValuePairsSlow.end(); ++it) {
+			this->keyValuePairsFast.insert(*it);
+		}
+	}
+	else
+	{
+		for (std::unordered_map<std::string, std::any>::iterator it = this->keyValuePairsFast.begin();
+			it != this->keyValuePairsFast.end(); ++it) {
+			this->keyValuePairsSlow.insert(*it);
+		}
+	}
 }
 
 std::istream& operator>>(std::istream& in, JSONObject& obj)
@@ -46,7 +76,16 @@ std::istream& operator>>(std::istream& in, JSONObject& obj)
 	std::any parseResult = JSONUtility::ParseJsonString(jsonString);
 	if (JSONObject* jsonObject = std::any_cast<JSONObject>(&parseResult))
 	{
-		obj.keyValuePairs = jsonObject->keyValuePairs;
+		obj.keyValuePairsSlow = jsonObject->keyValuePairsSlow;
 	}
 	return in;
+}
+
+std::ostream& operator<<(std::ostream& os, const JSONObject& obj)
+{
+	std::string jsonString = JSONUtility::StringifyToJson(obj);
+
+	os << jsonString;
+
+	return os;
 }
